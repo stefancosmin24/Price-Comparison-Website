@@ -1,0 +1,105 @@
+/* Static stylesheet */
+body {
+    background-color: rgb(208, 214, 214);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-size: 100% 100%;
+
+}
+
+header {
+    background-color: rgb(30, 32, 32);
+    color: rgb(196, 212, 219);
+    display: block;
+}
+
+.box {
+    background-color: rgb(26, 167, 167);
+    width: 580px;
+    height: 180px;
+    border: 1px solid rgb(145, 146, 132);
+    position: relative;
+    top: 15rem;
+    left: 9rem;
+    border-radius: 1em;
+    padding: 15px;
+    margin: 9px;
+    font-size: 15px;
+    box-shadow: black 5px 15px;
+    background: border-box rgb(196, 212, 219);
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+button {
+    float: right;
+    background-color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
+    height: 39px;
+    cursor: pointer;
+    margin-top: -4px;
+    margin-left: 11rem;
+    color: rgb(196, 212, 219);
+    
+}
+
+.disabled {
+    background-color: rgb(139, 138, 137);
+    cursor: not-allowed;
+}
+
+.same2 {
+    position: fixed;
+    background-color: transparent;
+    border: 2px solid transparent;
+}
+
+.same {
+    position: relative;
+    background-color: transparent;
+    border: 2px solid transparent;
+}
+
+.samebreak {
+    position: relative;
+    background-color: transparent;
+    border: 2px solid transparent;
+    margin-bottom: 2em;
+}
+
+.same3 {
+    position: relative;
+    background-color: transparent;
+    border: 2px solid transparent;
+    display: inline;
+}
+
+.sorty {
+    background-color: transparent;
+    position: fixed;
+    width: 100px;
+    bottom: 340px;
+    margin-top: 1px;
+    margin-left: 1rem;
+    float: left;
+    color: rgb(0, 0, 0)
+}
+
+h2 {
+    position: relative;
+    top: 230px;
+    font-family: Tahoma;
+}
+
+.form-control {
+    
+    float: right;
+    padding: 6px;
+    border: none;
+    margin-top: -57px;
+    margin-right: -100px;
+    font-size: 17px;
+    
+}

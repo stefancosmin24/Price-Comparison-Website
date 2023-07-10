@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="eu.cosminstefan.Shoe" table="shoes">
+    <id name="styleCode" type="String">
+      <column name="style_id"/>
+    </id>
+    <property name="brand" type="String">
+      <column name="brand"/>
+    </property>
+    <property name="model" type="String">
+      <column name="model"/>
+    </property>
+    <property name="weight" type="int">
+      <column name="weight"/>
+    </property>
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vue with Web Service Demo</title>
+    <link href="mystyles.css" type="text/css" rel="stylesheet">
+
+    <!-- Vue development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Axios library -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+            <button @click="toggleShowProduct">
+
+                <span class="fas fa-shopping-cart"></span>
+                Show products
+            </button>
+
+
+
+
+
+        </header>
+
+        <div v-if="showProduct">
+            <header>
+                <input class="form-control" type="text" v-model="searchTerm" v-on:keyup="searchCereals"
+                    placeholder="Search" />
+            </header>
+            <main>
+
+
+                <div>
+                    <div v-for="comparison in comparisons" class="box">
+
+                        <p>Id: {{comparison.id}}</p>
+                        <p>Name: {{comparison.name}}</p>
+                        <p>Price: £{{comparison.price}}</p>
+                        <a v-bind:href="comparison.url" target="_blank">{{ comparison.url }}</a>
+                    </div>
+                </div>
+
+                <!--Buttons for pagination-->
+                <div style="margin-top: 190px; margin-right: 100px; font-weight: bold;">
+                    <p>Page number: {{pageNumber + 1}}</p>
+                    <button v-on:click="nextPage" id="nextPageButton">Next Page    </button>
+                    <button v-on:click="previousPage" id="previousPageButton">Previous Page</button>
+                </div>
+
+
+            </main>
+        </div>
+
+        <div v-else>
+            <h1>Latest news</h1>
+            <img href="https://thesolesupplier.co.uk/news/what-made-new-balance-sneakers-cool-again/" src="ads1.webp"
+                style="float:left;display:block;" alt="" width="800px" height="500px">
+            <a href="https://thesolesupplier.co.uk/news/what-made-new-balance-sneakers-cool-again/">What Made New
+                Balance Sneakers Cool Again?</a>
+
+
+        </div>
+
+        <h2 style="display: inline-block">Shop with us!</h2>
+
+
+
+    </div>
+    </div>
+
+
+    </div>
+
+    <script>
+
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                sitename: "Price comparison Website",
+                showProduct: false,
+                comparisons: [],
+                searchTerm: "",
+                numItemsPerPage: 16,
+                pageNumber: 0,
+                numResults: 0
+
+            },
+            methods: {
+                toggleShowProduct() {
+                    this.showProduct = this.showProduct ? false : true;
+                },
+                //Get all the cereals from the web service using Axios.
+                loadAllCereals: async function () {
+
+                    let offset = this.pageNumber * this.numItemsPerPage;
+                    let searchUrl = "/search/" + this.searchTerm + '?offset=' + offset + '&num_items=' + this.numItemsPerPage;
+
+                    try {
+                        let results = await axios.get(searchUrl);//Send GET request to cereals path
+                        this.comparisons = results.data;
+                        this.numResults = results.count;
+
+                        console.log(results);
+
+                    }
+                    catch (err) {
+                        console.error(err);
+                    }
+
+                    if (this.comparisons.length < 16) {
+                        document.getElementById("nextPageButton").disabled = true;
+                    }
+                    else document.getElementById("nextPageButton").disabled = false;
+                    if (this.pageNumber < 1) {
+                        document.getElementById("previousPageButton").disabled = true;
+                    }
+                    else document.getElementById("previousPageButton").disabled = false;
+
+                },
+
+                searchCereals: function () {
+                    this.pageNumber = 0;
+                    this.loadAllCereals();
+
+                },
+
+                nextPage: function () {
+                    this.pageNumber++;
+
+
+                    console.log(this.comparisons.length);
+                    if (this.comparisons.length === 0) {
+                        document.getElementById("nextPageButton").disabled = true;
+                    }
+
+                    this.loadAllCereals();
+                    window.scrollTo(0, 0);
+
+                },
+
+                previousPage: function () {
+                    if (this.pageNumber > 0)
+                        this.pageNumber--;
+
+                    if (this.pageNumber === 0) {
+                        document.getElementById("previousPageButton").disabled = true;
+                    }
+
+                    this.loadAllCereals();
+                    window.scrollTo(0, 0);
+
+
+
+                },
+
+
+            },
+
+            created: function () {//Vue lifecycle hook, called when data is loaded.
+                //Load cereals from web service
+                this.loadAllCereals();
+                //setInterval(this.loadAllCereals, 2000);
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>
